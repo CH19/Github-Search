@@ -1,9 +1,10 @@
 <script setup>
+// @ts-check
 import { ref } from "vue";
 import porfile from "./components/porfile.vue";
 
 const API = "https://api.github.com/users/";
-const saludo = 'Hola mundo'
+const saludo = 'Github Search'
 // se utiliza la variable user para obtener data de los inputs para los usuarios 
 const user = ref(null);
 let userData = ref(null);
