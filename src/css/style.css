@@ -1,15 +1,8 @@
-:root{
-  --naranja3d:  #FFB443;
-  --naranja1: #ffff89;
-  --naranj2: #ffcc50;
-  --naranja4: #c06500;
-  --naranja5: #853400;
-  --widthTotal: 96vw;
-  --heightTotal: 96vh;
-
-}
+@import url(./variables.css);
 body{
-  background-color: var(--naranja3d)
+  background-color: var(--naranja3d);
+  font-family: Inter;
+
   
 }
 .bigContainer{
@@ -19,12 +12,11 @@ body{
   padding: none;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 }
 .form-container{
   width: 20rem;
   color: #000;
-font-family: Inter;
 font-size: 2.4rem;
 font-style: normal;
 font-weight: 600;
@@ -33,7 +25,6 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: space-between;
-background-color: red;
 
 }
 .form-container div{
