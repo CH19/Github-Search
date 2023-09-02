@@ -1,6 +1,7 @@
 <script setup>
 // @ts-check
 // importaciones de los metodos y propiedades de vue 
+import { preProcessFile } from "typescript";
 import { computed, onMounted, reactive, ref, watch } from "vue";
 
 // objeto con los parametros a solicitar 
@@ -15,7 +16,8 @@ const props = defineProps({
             required: true,
         },
 
-    })
+    });
+const emits = defineEmits(['favoritesData'])
     // mapa con la lista de usuarios favoritos a buscar 
     const favorites = reactive(new Map());
     // propiedad para saber si el usuario tiene un favorito y que espera para que retorne 
@@ -30,12 +32,15 @@ const props = defineProps({
     function addFavorite(key){
         // console.log(key);
        if(key != undefined || key != null){
-        favorites.set(key?.id.toString(), key);
-        console.log(favorites.get(key.id.toString()));
+         favorites.set(key?.id.toString(), key);
+        //  console.log(favorites.get(key.id.toString()));
+        //  console.log(favorites);
+        //  console.log(favorites.size);
+         emits('favoritesData', favorites);
 
-        favorites.forEach((value, key) => {
-            console.log(`${key} ${JSON.stringify(value)}`);
-        })
+        // favorites.forEach((value, key) => {
+        //     console.log(`${key} ${JSON.stringify(value)}`);
+        // })
        }else{
         console.log('no definido');
        }
@@ -43,6 +48,7 @@ const props = defineProps({
     // funcion para remover el favorito
     function removeFavorite(key){
         // recordar colocar el metodo toString en todas las llamadas 
+        emits('favoritesData', favorites);
         favorites.delete(key?.id.toString());
         console.log(favorites);
 }
