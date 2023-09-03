@@ -1,6 +1,8 @@
 <script setup>
-//@ts-check
-import { onMounted } from "vue";
+// @ts-check
+import { onMounted, onUpdated, ref} from "vue";
+const storageFavs = ref(new Map(JSON.parse(String(window.localStorage.getItem('favorites'))).map(fav => [fav?.id, fav])));
+
 
 const props = defineProps({
     // con la prop favs se importan los favoritos del componnente Porfile, esto se hace tambien comunicando un emmit al componente padre 
@@ -10,25 +12,39 @@ const props = defineProps({
         default: null,
     }
 });
-onMounted(()=>{
+ 
+const emits = defineEmits(['favoriteSelected'])
+onUpdated(()=>{
     console.log('favoritos montados');
-})
-// onUpdated(()=>{
-//     props.favs.forEach((element, value) => {
-//     console.warn(`${JSON.stringify(element.login)}: ${value}`);
-// });
-// })
+    console.log(storageFavs.value);
+    storageFavs.value.forEach(element => {
+        console.log(`${element.login}`);
+    });
+});
+function selectedFav(name){
+    emits('favoriteSelected', name)
+    return name
+}
 </script>
 <template>
     <div class="favorites">
         <!-- aqui se puede usar el metodo favs.values() para cargar en el arreglo solo los valores pero me interesa tener el key del map 
         para usarlo como key del for  -->
-            <div class="favorite" v-for="fav in favs" :key="fav[0]">
-                <a class="favorite__link" :href="fav[1].html_url" target="_blank">
+        
+        <!-- hay un bug en el que se pueden agregar dos veces los favs pero no tengo el tiempo ni las ganas de solucionarlo por ahora  -->
+        <div class="favorite" v-for="fav in storageFavs" :key="fav[0].id">
+                <a class="favorite__link" @click.prevent="selectedFav(fav[1].login)" href="#" target="_blank">
                     <img :src="fav[1].avatar_url" :alt="fav[1].name" class="favorite__avatar">
                     <span class="favorite__name">{{ fav[1].login }}</span>
                 </a>
             </div>
+        <div class="favorite" v-for="fav in favs" :key="fav[0].id">
+                <a class="favorite__link" @click.prevent="selectedFav(fav[1].login)" href="#" target="_blank">
+                    <img :src="fav[1].avatar_url" :alt="fav[1].name" class="favorite__avatar">
+                    <span class="favorite__name">{{ fav[1].login }}</span>
+                </a>
+            </div>
+       
         </div>
 </template>
 

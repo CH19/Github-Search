@@ -1,7 +1,7 @@
 <script setup>
 // @ts-check
 // importaciones de los metodos y propiedades de vue 
-import { preProcessFile } from "typescript";
+import { JsxEmit, preProcessFile } from "typescript";
 import { computed, onMounted, reactive, ref, watch } from "vue";
 
 // objeto con los parametros a solicitar 
@@ -36,8 +36,9 @@ const emits = defineEmits(['favoritesData'])
         //  console.log(favorites.get(key.id.toString()));
         //  console.log(favorites);
         //  console.log(favorites.size);
-         emits('favoritesData', favorites);
-
+        // window.localStorage.setItem('favs', JSON.stringify(favorites.values()));
+        window.localStorage.setItem('favorites',  JSON.stringify(Array.from(favorites.values())));
+        emits('favoritesData', favorites);
         // favorites.forEach((value, key) => {
         //     console.log(`${key} ${JSON.stringify(value)}`);
         // })
@@ -48,9 +49,9 @@ const emits = defineEmits(['favoritesData'])
     // funcion para remover el favorito
     function removeFavorite(key){
         // recordar colocar el metodo toString en todas las llamadas 
-        emits('favoritesData', favorites);
         favorites.delete(key?.id.toString());
-        console.log(favorites);
+        window.localStorage.setItem('favorites',  JSON.stringify(Array.from(favorites.values())));
+        emits('favoritesData', favorites);
 }
 </script>
 
