@@ -1,7 +1,6 @@
 <script setup>
 // @ts-check
 // importaciones de los metodos y propiedades de vue 
-import { JsxEmit, preProcessFile } from "typescript";
 import { computed, onMounted, reactive, ref, watch } from "vue";
 
 // objeto con los parametros a solicitar 
@@ -24,7 +23,7 @@ const emits = defineEmits(['favoritesData'])
     const itsfavorite = computed(()=>{
     //    validacion otra vez de que la propiedad con el id no este vacia 
         if(props.dataUser.id){
-            return favorites.has(props.dataUser.id.toString()) ? true: false;
+            return favorites.has(props.dataUser.login) ? true: false;
       }else
       return 'No hay datos';
     })
@@ -32,8 +31,8 @@ const emits = defineEmits(['favoritesData'])
     function addFavorite(key){
         // console.log(key);
        if(key != undefined || key != null){
-         favorites.set(key?.id.toString(), key);
-        //  console.log(favorites.get(key.id.toString()));
+         favorites.set(key?.login, key);
+        //  console.log(favorites.get(key.login));
         //  console.log(favorites);
         //  console.log(favorites.size);
         // window.localStorage.setItem('favs', JSON.stringify(favorites.values()));
@@ -49,15 +48,16 @@ const emits = defineEmits(['favoritesData'])
     // funcion para remover el favorito
     function removeFavorite(key){
         // recordar colocar el metodo toString en todas las llamadas 
-        favorites.delete(key?.id.toString());
+        favorites.delete(key?.login);
         window.localStorage.setItem('favorites',  JSON.stringify(Array.from(favorites.values())));
         emits('favoritesData', favorites);
 }
 </script>
 
 <template>
-        <div class="porfile-container">
-            <div class="porfile" v-if="dataUser != null && dataUser?.login">
+          <div class="porfile-container">
+            <Transition>
+              <div class="porfile" v-if="dataUser != null && dataUser?.login">
                 <div>
                     <!-- div con la informacion de annadir o quitar favoritos  -->
                     <a href="#" v-if="!itsfavorite" class="porfile__toggle-favorite" @click="addFavorite(props.dataUser)">Add Favorite ⭐️</a>
@@ -71,7 +71,10 @@ const emits = defineEmits(['favoritesData'])
                     <a :href="dataUser?.html_url" class="porfile__blog">{{ dataUser?.html_url }}</a>
                 </p>
             </div>
-            <div class="porfile__error" v-if="dataUser != null && !(dataUser?.login)">Error found</div>
+            </Transition>
+            <Transition>
+              <div class="porfile__error" v-if="dataUser != null && !(dataUser?.login)">Error found</div>
+            </Transition>
         </div>
 
 </template>
@@ -138,6 +141,34 @@ const emits = defineEmits(['favoritesData'])
   color: var(--white);;
   text-align: center;
   border: 1px solid red;
+}
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+
+}
+
+.list-move, /* apply transition to moving elements */
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.list-leave-active {
+  position: absolute;
 }
 </style>
 

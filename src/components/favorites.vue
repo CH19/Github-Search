@@ -10,17 +10,12 @@ const props = defineProps({
         type: Map,
         required: true,
         default: null,
-    }
+    },
+    userString: String,
 });
  
 const emits = defineEmits(['favoriteSelected'])
-onUpdated(()=>{
-    console.log('favoritos montados');
-    console.log(storageFavs.value);
-    storageFavs.value.forEach(element => {
-        console.log(`${element.login}`);
-    });
-});
+
 function selectedFav(name){
     emits('favoriteSelected', name)
     return name
@@ -32,19 +27,21 @@ function selectedFav(name){
         para usarlo como key del for  -->
         
         <!-- hay un bug en el que se pueden agregar dos veces los favs pero no tengo el tiempo ni las ganas de solucionarlo por ahora  -->
-        <div class="favorite" v-for="fav in storageFavs" :key="fav[0].id">
+        <div class="favorite" :class="userString?.localeCompare(fav[1].login, 'en', { sensitivity: 'base' }) == 0 ? 'selected' : ''" v-for="fav in storageFavs" :key="fav[0].id">
                 <a class="favorite__link" @click.prevent="selectedFav(fav[1].login)" href="#" target="_blank">
                     <img :src="fav[1].avatar_url" :alt="fav[1].name" class="favorite__avatar">
                     <span class="favorite__name">{{ fav[1].login }}</span>
                 </a>
             </div>
-        <div class="favorite" v-for="fav in favs" :key="fav[0].id">
+            <TransitionGroup name="list">
+                <div class="favorite" :class="userString?.localeCompare(fav[1].login, 'en', { sensitivity: 'base' }) == 0 ? 'selected' : ''" v-for="fav in favs" :key="fav[0].id">
                 <a class="favorite__link" @click.prevent="selectedFav(fav[1].login)" href="#" target="_blank">
                     <img :src="fav[1].avatar_url" :alt="fav[1].name" class="favorite__avatar">
                     <span class="favorite__name">{{ fav[1].login }}</span>
                 </a>
             </div>
        
+            </TransitionGroup>
         </div>
 </template>
 
@@ -119,5 +116,10 @@ function selectedFav(name){
    animations can be calculated correctly. */
 .list-leave-active {
   position: absolute;
+}
+.selected{
+    background-color: var(--redSelected);
+    border: solid 2px black;
+    transition: .1;
 }
 </style>

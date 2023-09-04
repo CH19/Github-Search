@@ -12,7 +12,8 @@ body{
   padding: none;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .form-container{
   width: 20rem;
