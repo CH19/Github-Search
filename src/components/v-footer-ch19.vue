@@ -4,8 +4,6 @@
 </script>
 
 <template>
-    <h4>{{saludo}}</h4>
-
     <botones></botones>
 </template>
 

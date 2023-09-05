@@ -3,7 +3,6 @@
 import { onMounted, onUpdated, ref} from "vue";
 const storageFavs = ref(new Map(JSON.parse(String(window.localStorage.getItem('favorites'))).map(fav => [fav?.id, fav])));
 
-
 const props = defineProps({
     // con la prop favs se importan los favoritos del componnente Porfile, esto se hace tambien comunicando un emmit al componente padre 
     favs: {
@@ -58,13 +57,15 @@ function selectedFav(name){
   grid-template-columns: repeat(3, 90px);
   gap: 10px;
 }
-
 .favorite {
     background: var(--naranja5);
-  transition: transform 0.3s ease-out;
-  border-radius: 20px;
-  width:fit-content;
-  height: fit;
+    transition: transform 0.3s ease-out;
+    border-radius: 20px;
+    width:fit-content;
+    height: fit;
+}
+.favorite:hover{
+    background-color: var(--naranj2)
 }
 .favorite__name{
     color: var(--white);
@@ -121,5 +122,18 @@ function selectedFav(name){
     background-color: var(--redSelected);
     border: solid 2px black;
     transition: .1;
+}
+@media screen and (max-width: 700px) {
+  *{
+    font-size: 16px;
+  }
+  .favorites{
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 1fr);
+    }
+    .favorite__name{
+      font-size: 1em;
+    }
 }
 </style>

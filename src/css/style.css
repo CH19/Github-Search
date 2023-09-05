@@ -1,4 +1,8 @@
 @import url(./variables.css);
+@import url(../../BlogerSans/BloggerSans.css);
+*{
+  font-family: 'BloggerSans' ;
+}
 body{
   background-color: var(--naranja3d);
   font-family: Inter;
@@ -60,4 +64,19 @@ border-radius: 1.6rem;
 background: #F5F5FA;
 /* Shadow 3 */
 box-shadow: 20px 20px 0px 0px rgba(0, 0, 0, 0.40);
+}
+@media screen and (max-width: 600px) {
+  .bigContainer{
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+  }
+  .form-container{
+    width: 3rem;
+    display: block;
+  }
+  .form-container div{
+    width: 2rem;
+    display: block;
+  }
 }

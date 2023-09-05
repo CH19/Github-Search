@@ -45,7 +45,7 @@ const emits = defineEmits(['favoritesData'])
         console.log('no definido');
        }
     }
-    // funcion para remover el favorito
+    // funcion para emover el favorito
     function removeFavorite(key){
         // recordar colocar el metodo toString en todas las llamadas 
         favorites.delete(key?.login);
@@ -60,8 +60,8 @@ const emits = defineEmits(['favoritesData'])
               <div class="porfile" v-if="dataUser != null && dataUser?.login">
                 <div>
                     <!-- div con la informacion de annadir o quitar favoritos  -->
-                    <a href="#" v-if="!itsfavorite" class="porfile__toggle-favorite" @click="addFavorite(props.dataUser)">Add Favorite ⭐️</a>
-                <a href="#" v-else class="porfile__toggle-favorite" @click="removeFavorite(dataUser)">Remove favorite ⭐️</a>
+                    <a href="#" v-if="!itsfavorite" class="porfile__toggle-favorite" @click.prevent="addFavorite(props.dataUser)">Add Favorite ⭐️</a>
+                <a href="#" v-else class="porfile__toggle-favorite" @click.prevent="removeFavorite(dataUser)">Remove favorite ⭐️</a>
                 </div>
 
                 <h2 class="porfile__name">{{ dataUser?.login }}</h2>
@@ -80,7 +80,14 @@ const emits = defineEmits(['favoritesData'])
 </template>
 
 <style scoped>
+@import url(../../node_modules/bootstrap/dist/css/bootstrap.css);
 @import url(../css/variables.css);
+:root{
+  font-size: 8px;
+}
+*{
+  font-size: 1.5rem;
+}
 .porfile-container{
     padding: 20px;
     margin: 10px;
@@ -88,12 +95,12 @@ const emits = defineEmits(['favoritesData'])
     .porfile {
   position: relative;
   background-color: var(--naranja5);
-  border-radius: 0.3rem;
+  border-radius: 0.3em;
   box-shadow: 2px 2px 3px var(--naranja4);
   color: var(--white);;
-  padding: 2.5rem;
+  padding: 2.5em;
   display: grid;
-  gap: 1rem;
+  gap: 1em;
   grid-template-areas:
     "name name"
     "avatar bio";
@@ -101,13 +108,13 @@ const emits = defineEmits(['favoritesData'])
 
 .porfile__toggle-favorite {
   position: absolute;
-  top: 0.3rem;
-  right: 0.3rem;
+  top: 0.3em;
+  right: 0.3em;
   border: none;
   color: var(--white);
   text-decoration: none;
-  padding: 0.4rem;
-  font-size: 1.2rem;
+  padding: 0.4em;
+  font-size: 1.2em;
 }
 .porfile__toggle-favorite:hover{
     color: var(--naranj2);
@@ -115,14 +122,14 @@ const emits = defineEmits(['favoritesData'])
 
 .porfile__name {
   grid-area: name;
-  margin: 0.4rem 0;
+  margin: 0.4em 0;
 }
 
 .porfile__avatar {
   grid-area: avatar;
-  max-width: 6rem;
+  max-width: 6em;
   height: auto;
-  border-radius: 1rem;
+  border-radius: 1em;
 }
 
 .porfile__bio {
@@ -136,7 +143,7 @@ const emits = defineEmits(['favoritesData'])
 }
 
 .porfile__error {
-  padding: 0.3rem;
+  padding: 0.3em;
   background-color: tomato;
   color: var(--white);;
   text-align: center;
@@ -169,6 +176,26 @@ const emits = defineEmits(['favoritesData'])
    animations can be calculated correctly. */
 .list-leave-active {
   position: absolute;
+}
+@media screen and (max-width: 560px) {
+:root{
+  font-size: 8px;
+}
+*{
+  font-size: 14px;
+}
+.porfile{
+  width: 100%;
+}
+  .porfile-container{
+    width: 100vw;
+    align-items: center;
+    padding: 20px 0;
+    margin: 10px 0;
+  }
+  .porfile__avatar{
+    max-width: 6em;
+  }
 }
 </style>
 
