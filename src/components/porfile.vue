@@ -80,7 +80,6 @@ const emits = defineEmits(['favoritesData'])
 </template>
 
 <style scoped>
-@import url(../../node_modules/bootstrap/dist/css/bootstrap.css);
 @import url(../css/variables.css);
 :root{
   font-size: 8px;

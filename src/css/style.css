@@ -1,13 +1,6 @@
 @import url(./variables.css);
-@import url(../../BlogerSans/BloggerSans.css);
-*{
-  font-family: 'BloggerSans' ;
-}
 body{
   background-color: var(--naranja3d);
-  font-family: Inter;
-
-  
 }
 .bigContainer{
   width: var(--widthTotal);
