@@ -10,7 +10,7 @@ async function ch19Loaded() {
          }).then(json => ch19Data.value = json).catch(error => console.error(error));
           }
 onBeforeMount(()=>{
-    console.log('ch19 component');
+    console.log('cargando datos del componente de informacion del usuario');
     ch19Loaded();
 })
 </script>
@@ -18,12 +18,12 @@ onBeforeMount(()=>{
 <template>
   <div class="links-container">
     <article :v-if="ch19Data.length > 1 " class="loguito" id="Ig-Caption">
-      <span>Make By CH19</span>
+      <span>Make By {{ ch19Data.login }}</span>
             <figure>
-              <img :src="ch19Data.avatar_url" alt="">
+              <img :src="ch19Data.avatar_url" alt="CH19_Porfile">
               </figure>
-              <a class="links-ancla links-button text-decoration-none" :href="ch19Data.dataUser?.html_url">
-                <img height="32" width="32" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg"/>
+              <a class="links-ancla links-button text-decoration-none" :href="ch19Data?.html_url">
+                <img height="32" width="32" src='https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg'/>
                 <span>Github</span>
               </a>
             </article>

@@ -1,6 +1,6 @@
 <script setup>
 //@ts-check
-import { computed, ref, watch } from "vue";
+import { ref } from "vue";
 import porfile from "./components/porfile.vue";
 import favorites from './components/favorites.vue';
 import FooterChris from'./components/v-footer-ch19.vue';
@@ -59,7 +59,6 @@ async function doSearch() {
   </div>
   <porfile :data-user="userData" @favorites-data="cambiarValor"></porfile>
   <favorites v-if="widthActual < phoneBreakPoint" class="favorites" :user-string="user" :favs="favoritesList" @favorite-selected="selectedfav"></favorites>
-    <hr/>
     </div>
     <FooterChris></FooterChris>
 </div>
