@@ -10,3 +10,14 @@ To achieve this, we will utilize the browser's local storage to store the list o
 The development of this application will follow the practical DevOps methodology. This means that we will use best development practices, continuous integration, and automated deployment to ensure code quality and smooth implementation. 
 
 The ultimate goal of this application is to provide users with an easy and convenient way to search and manage user profiles on GitHub, leveraging the power of Vue.js on the frontend and the GitHub REST API on the backend.
+
+[deloyed aplication](https://ephemeral-cupcake-31b6b1.netlify.app/)
+
+
+## Dependencies
+
+```npm install```
+```npm bootstrap install```
+
+## for final version
+```npm run build```
